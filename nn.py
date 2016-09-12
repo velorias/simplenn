@@ -37,7 +37,7 @@ class KohonenNetwork(object):
 	"""
 	A class for all the Network
 	"""
-	def __init__(self, input_quant, symbols):
+	def __init__(self, input_quant=1, symbols="0"):
 		"""
 		We have to give to our network the quantity of the inputs 
 		(pixels in our case) and
@@ -101,9 +101,9 @@ class KohonenNetwork(object):
 		print('If it`s wrong, input the right answer. If it`s right, press Enter:')
 		my_answer = input()
 		if my_answer == '':
-			self.study(input_, net_answer)
+			# self.study(input_, net_answer)
 			return net_answer
-		elif my_answer in symbols:
+		elif my_answer != net_answer and my_answer in symbols:
 			self.study(input_, my_answer)
 			return my_answer
 		elif my_answer == 'skip':
@@ -124,17 +124,13 @@ class KohonenNetwork(object):
 		my_answer = letter
 		print('Real is:', my_answer)
 
-		if my_answer in symbols:
+		if my_answer != net_answer and my_answer in symbols:
 			self.study(input_, my_answer)
 			
-		
 		else:
 			print('You are not adectvative!')
 			
 		return net_answer
-
-
-
 
 	def save_network(self):
 		"""
@@ -144,6 +140,7 @@ class KohonenNetwork(object):
 		self.dumped = [self._inputs, self._neurons, self.symbols]
 		with open('nn.pcl', 'wb') as f:
 			pickle.dump(self.dumped, f)
+
 
 def load_nn_from_file():
 	"""
